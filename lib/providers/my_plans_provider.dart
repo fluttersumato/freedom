@@ -701,14 +701,14 @@ class MyPlansProvider with ChangeNotifier {
 
   String getProductIcon({String? productCode}) {
     final productImageMap = {
-      "Standard-Basic": 'lib/res/images/StandardIcon.png',
-      "Standard-Advance": 'lib/res/images/StandardIcon.png',
-      "Standard-Pro": 'lib/res/images/StandardIcon.png',
-      "Silver-Basic": 'lib/res/images/SilverBasicIcon.png',
-      "Silver-Advance": 'lib/res/images/SilverAdvanceIcon.png',
-      "Silver-Pro": 'lib/res/images/SilverProIcon.png',
-      "Gold-Supreme": 'lib/res/images/GoldIcon.png',
-      "Platinum-Elite": 'lib/res/images/PlatiniumIcon.png',
+      "Standard-Basic": 'images/StandardIcon.png',
+      "Standard-Advance": 'images/StandardIcon.png',
+      "Standard-Pro": 'images/StandardIcon.png',
+      "Silver-Basic": 'images/SilverBasicIcon.png',
+      "Silver-Advance": 'images/SilverAdvanceIcon.png',
+      "Silver-Pro": 'images/SilverProIcon.png',
+      "Gold-Supreme": 'images/GoldIcon.png',
+      "Platinum-Elite": 'images/PlatiniumIcon.png',
     };
 
     return productImageMap[productCode] ??

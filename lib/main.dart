@@ -1,37 +1,93 @@
 import 'package:flutter/material.dart';
+import 'package:freedom/providers/internet_connection_status_provider.dart';
+import 'package:freedom/providers/my_plans_provider.dart';
+import 'package:freedom/providers/theme_provider.dart';
+import 'package:freedom/views/investmentDashboard/my_plans.dart';
+import 'package:provider/provider.dart';
+import 'views/investmentDashboard/investment_dashboard.dart';
+import 'views/widgets/test_connectivity_page.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+
+        ChangeNotifierProvider(create: (_) => ConnectivityProvider()),
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
+        ChangeNotifierProvider(create: (_) => MyPlansProvider()),
+      ],
+      // child:  HomePage(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  // end internet popup
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    // final bool isDarkMode = context.watch<ThemeProvider>().isDarkMode;
     return MaterialApp(
+      color: Colors.red,
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a blue toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+      theme: context.watch<ThemeProvider>().themeData,
+      home:
+      /*   MyTestingPage(),*/
+      const InvestmentDashBoard(),
+      // HomePage(),
+      /*  routes: {
+        '/disconnected': (context) => DisconnectedPage(),
+      },*/
+
+      // const MyPlans(),
+    );
+
+    // home: const MyHomePage(title: 'Flutter Demo Home Page'),
+  }
+}
+
+class BottomTabControlExample extends StatefulWidget {
+  const BottomTabControlExample({super.key});
+
+  @override
+  _BottomTabControlExampleState createState() =>
+      _BottomTabControlExampleState();
+}
+
+class _BottomTabControlExampleState extends State<BottomTabControlExample> {
+  int selectedIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      /*floatingActionButton: FloatingActionButton(backgroundColor: Colors.blue,
+        onPressed: () {},
+        child: Image.asset(
+          ImgP.freedomBirdIcon, // Replace with your bird icon asset path
+          width: 40,
+          height: 40,
+        ),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,*/
+      body: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Expanded(
+            child: Center(
+              child: Text(
+                'Content for Tab $selectedIndex',
+                style: const TextStyle(fontSize: 20),
+              ),
+            ),
+          ),
+
+        ],
+      ),
     );
   }
 }
@@ -55,18 +111,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  final int _counter = 0;
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
+  // void _incrementCounter() async {
+  //
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -116,7 +165,43 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: () async {
+          Navigator.push(
+            context,
+            /* MaterialPageRoute(
+                builder: (context) => MyPlans(
+                  backgroundImgPath:
+                      'lib/res/images/StandardBackgroundLight.png',
+                  planIconPath: 'lib/res/images/StandardIcon.png',
+                  tradeStatus: productsModel.data?.userStatus as int,
+
+                  // "Live",
+                  balance: '${productsModel.data?.balance}',
+                  isTradeStart: false,
+                  isTradePause: false,
+                  isTradeStop: false,
+                  planName: '${productsModel.data?.userProduct?.name}',
+                ),
+              ),  */
+            MaterialPageRoute(
+              builder: (context) => const MyPlans(),
+            ),
+          );
+
+/*
+          setState(() {
+            // This call to setState tells the Flutter framework that something has
+            // changed in this State, which causes it to rerun the build method below
+            // so that the display can reflect the updated values. If we changed
+            // _counter without calling setState(), then the build method would not be
+            // called again, and so nothing would appear to happen.
+            // dev.debugger();
+             // wherever you want to stop
+
+            _counter++;
+          });
+          */
+        },
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
