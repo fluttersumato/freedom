@@ -7,6 +7,8 @@ import '../../providers/theme_provider.dart';
 import 'my_plan_ad.dart';
 
 class AllPlans extends StatelessWidget {
+  const AllPlans({super.key});
+
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
@@ -61,7 +63,7 @@ class AllPlans extends StatelessWidget {
 
         // The first container
         // if(context.watch<MyPlansProvider>().allPlansProductList?.length!=null)
-        SliverToBoxAdapter(
+        const SliverToBoxAdapter(
           child: PlatinumAd(),
 
         ),

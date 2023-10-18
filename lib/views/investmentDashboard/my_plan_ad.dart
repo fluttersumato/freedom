@@ -52,14 +52,11 @@ class MyPlanAd extends StatelessWidget {
       color: isDarkMode ? Colors.black : Colors.white,
       child: Stack(
         children: [
-          Container(
-            // margin: const EdgeInsets.symmetric(vertical: 7, horizontal: 7),
-            child: Image.asset(
-              backgroundImgPath,
-              width: 420,
-              height: 272,
-              fit: BoxFit.fill,
-            ),
+          Image.asset(
+            backgroundImgPath,
+            width: 420,
+            height: 272,
+            fit: BoxFit.fill,
           ),
           Container(
             margin: const EdgeInsets.fromLTRB(20, 15, 20, 0),

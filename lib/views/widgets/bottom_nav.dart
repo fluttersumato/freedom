@@ -5,40 +5,28 @@ import '../../providers/theme_provider.dart';
 import '../../utils/img_path.dart';
 
 class BottomTabControl extends StatefulWidget {
+
+
   final ValueChanged<int> onTabSelected;
   final int selectedIndex;
 
   final String tab0Title, tab1Title, tab2Title, tab3Title;
- final  String tab0IconPath, tab1IconPath, tab2IconPath, tab3IconPath;
+  final  String tab0IconPath, tab1IconPath, tab2IconPath, tab3IconPath;
 
-  BottomTabControl(
-      {required this.onTabSelected,
-      required this.selectedIndex,
-      required this.tab0Title,
-      required this.tab1Title,
-      required this.tab2Title,
-      required this.tab3Title,
-      required this.tab0IconPath,
-      required this.tab1IconPath,
-      required this.tab2IconPath,
-      required this.tab3IconPath});
-
-  /* BottomTabControl(
-      {required this.onTabSelected,
-      required this.selectedIndex,
-      required this.tab0Title,
-      required this.tab1Title,
-      required this.tab2Title,
-      required this.tab3Title});*/
-
-  /*  BottomTabControl({
-    required this.onTabSelected,
-    required this.selectedIndex,
-
-  });*/
+  const BottomTabControl(
+      {super.key, required this.onTabSelected,
+        required this.selectedIndex,
+        required this.tab0Title,
+        required this.tab1Title,
+        required this.tab2Title,
+        required this.tab3Title,
+        required this.tab0IconPath,
+        required this.tab1IconPath,
+        required this.tab2IconPath,
+        required this.tab3IconPath});
 
   @override
-  _BottomTabControlState createState() => _BottomTabControlState();
+  State<BottomTabControl> createState() => _BottomTabControlState();
 }
 
 class _BottomTabControlState extends State<BottomTabControl> {
@@ -80,7 +68,7 @@ class _BottomTabControlState extends State<BottomTabControl> {
                           ),
                           title: Text(widget.tab0Title,
                               style:
-                                  const TextStyle(fontSize: 10, color: Colors.white)),
+                              const TextStyle(fontSize: 10, color: Colors.white)),
                           selectedIndex: 0,
                           selected: widget.selectedIndex == 0,
                         ),
@@ -93,7 +81,7 @@ class _BottomTabControlState extends State<BottomTabControl> {
                           ),
                           title: Text(widget.tab1Title,
                               style:
-                                  const TextStyle(fontSize: 10, color: Colors.white)),
+                              const TextStyle(fontSize: 10, color: Colors.white)),
                           selectedIndex: 1,
                           selected: widget.selectedIndex == 1,
                         ),
@@ -109,7 +97,7 @@ class _BottomTabControlState extends State<BottomTabControl> {
                           ),
                           title: Text(widget.tab2Title,
                               style:
-                                  const TextStyle(fontSize: 10, color: Colors.white)),
+                              const TextStyle(fontSize: 10, color: Colors.white)),
                           selectedIndex: 3,
                           selected: widget.selectedIndex == 3,
                         ),
@@ -122,7 +110,7 @@ class _BottomTabControlState extends State<BottomTabControl> {
                           ),
                           title: Text(widget.tab3Title,
                               style:
-                                  const TextStyle(fontSize: 10, color: Colors.white)),
+                              const TextStyle(fontSize: 10, color: Colors.white)),
                           selectedIndex: 4,
                           selected: widget.selectedIndex == 4,
                         ),
@@ -165,7 +153,7 @@ class _BottomTabControlState extends State<BottomTabControl> {
 
   Widget _buildTabItem(
       {Image? icon, Text? title, int? selectedIndex, bool selected = false}) {
-    final tabColor = selected ? const Color(0xFF90FFFFFF) : Colors.transparent;
+    final tabColor = selected ? const Color(0xFF90FFFF) : Colors.transparent;
     return GestureDetector(
       onTap: () {
         widget.onTabSelected(selectedIndex!);
@@ -176,21 +164,21 @@ class _BottomTabControlState extends State<BottomTabControl> {
         // color: tabColor,
         decoration: selectedIndex == 4
             ? BoxDecoration(
-                color: tabColor,
-                borderRadius: const BorderRadius.only(
-                  topRight: Radius.circular(36.0),
-                ),
-              )
+          color: tabColor,
+          borderRadius: const BorderRadius.only(
+            topRight: Radius.circular(36.0),
+          ),
+        )
             : selectedIndex == 0
-                ? BoxDecoration(
-                    color: tabColor,
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(36.0),
-                    ),
-                  )
-                : BoxDecoration(
-                    color: tabColor,
-                  ),
+            ? BoxDecoration(
+          color: tabColor,
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(36.0),
+          ),
+        )
+            : BoxDecoration(
+          color: tabColor,
+        ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -208,3 +196,7 @@ class _BottomTabControlState extends State<BottomTabControl> {
     );
   }
 }
+
+
+
+

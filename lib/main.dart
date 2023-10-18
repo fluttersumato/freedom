@@ -5,7 +5,6 @@ import 'package:freedom/providers/theme_provider.dart';
 import 'package:freedom/views/investmentDashboard/my_plans.dart';
 import 'package:provider/provider.dart';
 import 'views/investmentDashboard/investment_dashboard.dart';
-import 'views/widgets/test_connectivity_page.dart';
 
 void main() {
   runApp(

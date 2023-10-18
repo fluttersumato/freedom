@@ -15,7 +15,6 @@ import '../views/investmentDashboard/myplan_silver_ad.dart';
 import '../views/popup/congrats_popup.dart';
 import '../views/popup/pause_trade_popup.dart';
 import '../views/widgets/alert_dialog.dart';
-import '../views/widgets/alert_dialog_with_two_options.dart';
 
 class MyPlansProvider with ChangeNotifier {
   bool _isLoading = false;
@@ -438,7 +437,7 @@ class MyPlansProvider with ChangeNotifier {
           showDialog(
             context: context,
             builder: (BuildContext context) {
-              return CongratsDistributorPopup(
+              return const CongratsDistributorPopup(
                   isSuccess: false,
                   title: "Low balance",
                   description: "Popup balance");

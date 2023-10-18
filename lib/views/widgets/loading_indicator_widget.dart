@@ -5,7 +5,7 @@ import '../../res/colors.dart';
 class LoadingIndicatorWidget extends StatelessWidget {
   final bool isLoading;
 
-  LoadingIndicatorWidget({required this.isLoading});
+  const LoadingIndicatorWidget({super.key, required this.isLoading});
 
   @override
   Widget build(BuildContext context) {

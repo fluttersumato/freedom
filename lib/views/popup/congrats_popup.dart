@@ -10,7 +10,7 @@ class CongratsDistributorPopup extends StatelessWidget {
  final String title,description;
  final bool isSuccess;
 
-  CongratsDistributorPopup({required this.isSuccess,required this.title,required this.description});
+  const CongratsDistributorPopup({super.key, required this.isSuccess,required this.title,required this.description});
 
   @override
   Widget build(BuildContext context) {

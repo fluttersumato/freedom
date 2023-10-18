@@ -362,7 +362,7 @@ class AppStyles {
       Radius.circular(5),
     ),
   );
-  static TextStyle planAdStyleD =  TextStyle(color: AppC.white);
+  static TextStyle planAdStyleD =  const TextStyle(color: AppC.white);
   static TextStyle planAdStyleL =  TextStyle(color: AppC.black);
   static TextStyle planAdBoldStyleD =
       const TextStyle(color: AppC.white, fontWeight: FontWeight.bold);

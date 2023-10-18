@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
-import '../utils/constants.dart';
-import '../views/popup/congrats_popup.dart';
 import '../views/popup/internet_disconnect_popup.dart';
 
 class ConnectivityProvider with ChangeNotifier {

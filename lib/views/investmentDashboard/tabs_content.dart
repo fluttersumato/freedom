@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class TabOneContent extends StatelessWidget {
+  const TabOneContent({super.key});
+
   @override
   Widget build(BuildContext context) {
     return const Center(
@@ -10,6 +12,8 @@ class TabOneContent extends StatelessWidget {
 }
 
 class TabTwoContent extends StatelessWidget {
+  const TabTwoContent({super.key});
+
   @override
   Widget build(BuildContext context) {
     return const Center(
@@ -19,6 +23,8 @@ class TabTwoContent extends StatelessWidget {
 }
 
 class TabThreeContent extends StatelessWidget {
+  const TabThreeContent({super.key});
+
   @override
   Widget build(BuildContext context) {
     return const Center(
@@ -28,6 +34,8 @@ class TabThreeContent extends StatelessWidget {
 }
 
 class TabFourContent extends StatelessWidget {
+  const TabFourContent({super.key});
+
   @override
   Widget build(BuildContext context) {
     return const Center(
@@ -37,6 +45,8 @@ class TabFourContent extends StatelessWidget {
 }
 
 class TabFiveContent extends StatelessWidget {
+  const TabFiveContent({super.key});
+
   @override
   Widget build(BuildContext context) {
     return const Center(

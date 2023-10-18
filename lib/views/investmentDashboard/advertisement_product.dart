@@ -51,14 +51,11 @@ class AdvertisementProduct extends StatelessWidget {
       color: isDarkMode ? Colors.black : Colors.white,
       child: Stack(
         children: [
-          Container(
-            // margin: const EdgeInsets.symmetric(vertical: 7, horizontal: 7),
-            child: Image.asset(
-              backgroundImgPath,
-              width: 344,
-              height: 160,
-              fit: BoxFit.fill,
-            ),
+          Image.asset(
+            backgroundImgPath,
+            width: 344,
+            height: 160,
+            fit: BoxFit.fill,
           ),
           Container(
             margin: const EdgeInsets.fromLTRB(8, 15, 8, 0),
@@ -270,10 +267,10 @@ class AdvertisementProduct extends StatelessWidget {
                   planName,
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
-                AddVerticalSpace(height: 2),
+                const AddVerticalSpace(height: 2),
                 Text(
                   planDescription,
-                  style: TextStyle(fontSize: 8),
+                  style: const TextStyle(fontSize: 8),
                 ),
               ],
             ),

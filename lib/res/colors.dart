@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class AppC {
   static  Color black = Colors.black;
-  static  Color activityIndicatorColor = Color(0xFF437CA1);
+  static  Color activityIndicatorColor = const Color(0xFF437CA1);
   static const Color blackWith_0_1Opacity =  Color.fromRGBO(0, 0, 0, 0.1);
   static const Color whiteWith_0_1Opacity =  Color.fromRGBO(255,255,255, 0.1);
   static const Color successToast = Colors.green;

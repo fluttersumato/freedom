@@ -59,8 +59,8 @@ class _InvestmentDashBoardState extends State<InvestmentDashBoard> {
                 child: Consumer<MyPlansProvider>(builder: (context, planP, child) {
                   return IndexedStack(
                     index: planP.selectedTabIndex,
-                    children: [
-                      const MyPlans(),
+                    children: const [
+                      MyPlans(),
                       // const AllPlans(),
                       AllPlans(),
                       TabTwoContent(),

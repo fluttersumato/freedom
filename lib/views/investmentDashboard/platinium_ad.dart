@@ -25,7 +25,7 @@ class PlatinumAd extends StatelessWidget {
               ), // Adjust the radius as needed
             ),
             color: themeP.isDarkMode ? Colors.black : Colors.white,
-            child: Container(
+            child: SizedBox(
               height: 430,
               // margin: const EdgeInsets.symmetric(vertical: 7, horizontal: 7),
               child:
@@ -60,7 +60,7 @@ class PlatinumAd extends StatelessWidget {
                       children: [
                         Text(
                           StringCons.platinumAdTitle,
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                         ),
                         Expanded(child: Container()),
                         Consumer<MyPlansProvider>(builder: (context, planP, child) {
@@ -79,15 +79,15 @@ class PlatinumAd extends StatelessWidget {
                         }),
                       ],
                     ),
-                    AddVerticalSpace(height: 20),
+                    const AddVerticalSpace(height: 20),
                     Text(
                       StringCons.platinumAdDescription,
                       textAlign: TextAlign.justify,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 10,
                       ),
                     ),
-                    AddVerticalSpace(height: 20),
+                    const AddVerticalSpace(height: 20),
                     GestureDetector(
                       onTap: () async {
 
@@ -122,7 +122,7 @@ class PlatinumAd extends StatelessWidget {
                   ],
                 ),
               ),
-              AddVerticalSpace(height: 10),
+              const AddVerticalSpace(height: 10),
               Container(
                 margin: const EdgeInsets.fromLTRB(5, 2, 5, 0),
                 child: Consumer<MyPlansProvider>(builder: (context, planP, child) {

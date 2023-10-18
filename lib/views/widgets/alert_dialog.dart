@@ -5,7 +5,7 @@ import '../../res/colors.dart';
 
 class CustomAlertDialog extends StatelessWidget {
 
-  late final String? _title, _content, _yes;
+  late final String? _title, _content;
 
   CustomAlertDialog(
       {super.key,
