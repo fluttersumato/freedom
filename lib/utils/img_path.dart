@@ -1,5 +1,6 @@
 class ImgP {
-  static const String img = '';
+  static const String img = 'images/';
+  static const String buyDirection = 'images/BuyDirection.png';
   static const String historyTabIconLight = 'images/HistoryTabIconLight.png';
   static const String liveTradesPlanTabIconLight = 'images/LiveTradesPlanTabIconLight.png';
   static const String allPlanTabIcon = 'images/AllPlanTabIconLight.png';

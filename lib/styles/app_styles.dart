@@ -385,17 +385,20 @@ class AppStyles {
     color: Colors.black, // Default text color
     fontSize: 24,
     fontWeight: FontWeight.bold,
+    fontFamily: 'Poppins',
   );
 
   static const TextStyle mediumTextStyle = TextStyle(
     color: Colors.black,
     fontSize: 14,
     fontWeight: FontWeight.normal,
+    fontFamily: 'Poppins',
   );
   static const TextStyle smallTextStyle = TextStyle(
     color: Colors.black,
     fontSize: 12,
     fontWeight: FontWeight.normal,
+    fontFamily: 'Poppins',
   );
 
   // static Decoration iconContainerStyleL =iconContainerStyleD.copyWith( color: AppColors.white,);
@@ -416,7 +419,9 @@ class AppStyles {
     ),*/
     primaryColor: Colors.blue,
     hintColor: Colors.orange,
-    textTheme: const TextTheme(
+    textTheme:  TextTheme(
+
+
       bodySmall: smallTextStyle,
       bodyMedium: mediumTextStyle,
       bodyLarge: largeTextStyle,

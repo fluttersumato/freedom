@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AppC {
+  static  Color frameColor = Color(0xFF102E42);
+  static  Color frameGreenColor = Color(0xFF194119);
   static  Color black = Colors.black;
   static  Color activityIndicatorColor = const Color(0xFF437CA1);
   static const Color blackWith_0_1Opacity =  Color.fromRGBO(0, 0, 0, 0.1);
