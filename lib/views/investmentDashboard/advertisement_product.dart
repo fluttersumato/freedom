@@ -41,13 +41,7 @@ class AdvertisementProduct extends StatelessWidget {
     // MediaQueryData mediaQuery = MediaQuery.of(context);
     return Card(
       elevation: 3.0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15.0),
-        side: const BorderSide(
-          color: Colors.grey, // Set the border color here
-          width: 1.5, // Set the border width here
-        ), // Adjust the radius as needed
-      ),
+      shape: AppStyles.borderShapeForCards,
       color: isDarkMode ? Colors.black : Colors.white,
       child: Stack(
         children: [
@@ -75,7 +69,6 @@ class AdvertisementProduct extends StatelessWidget {
                         height: 35,
                       ),
                     ),
-
                   ],
                 ),
 

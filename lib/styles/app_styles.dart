@@ -7,6 +7,14 @@ class AppStyles {
       AppColors.disable),
     // Replace with your color
   );*/
+
+  static RoundedRectangleBorder borderShapeForCards=RoundedRectangleBorder(
+  borderRadius: BorderRadius.circular(15.0),
+  side: const BorderSide(
+  color: Colors.grey, // Set the border color here
+  width: 1.5, // Set the border width here
+  ), // Adjust the radius as needed
+  );
   static ButtonStyle cancelButtonStyle = ButtonStyle(
     backgroundColor:
         MaterialStateProperty.all<Color>(Colors.transparent), // BackgroundColor

@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../providers/my_plans_provider.dart';
 import '../../providers/theme_provider.dart';
+import '../../styles/app_styles.dart';
 import '../../utils/constants.dart';
 
 class GoldAd extends StatelessWidget {
@@ -16,13 +17,8 @@ class GoldAd extends StatelessWidget {
         Consumer<ThemeProvider>(builder: (context, themeP, child) {
           return Card(
             elevation: 3.0,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15.0),
-              side: const BorderSide(
-                color: Colors.grey, // Set the border color here
-                width: 1.5, // Set the border width here
-              ), // Adjust the radius as needed
-            ),
+            shape: AppStyles.borderShapeForCards,
+
             color: themeP.isDarkMode ? Colors.black : Colors.white,
             child: SizedBox(
               height: 680,
