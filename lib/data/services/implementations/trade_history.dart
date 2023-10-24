@@ -1,16 +1,14 @@
 import 'package:freedom/data/services/implementations/request_provider.dart';
 import '../../../config.dart';
-import '../../../models/myPlans/api_model/product_selection_model.dart';
 import '../../../models/tradeHistory/trade_history_model.dart';
-import '../interfaces/i_product_selection.dart';
+import '../../../models/tradeHistory/trade_history_model.dart';
 import '../interfaces/i_request_provider.dart';
 import '../interfaces/i_trade_history.dart';
-import '../settings.dart';
 
 class TradeHistory implements ITradeHistory {
   late final IRequestProvider _apiService; // dependency injenction
 
-  ProductSelection() {
+  TradeHistory() {
     _apiService = RequestProvider(); // dependency injenction
   }
 

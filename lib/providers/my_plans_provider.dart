@@ -8,6 +8,7 @@ import '../models/myPlans/api_model/product_selection_model.dart';
 import '../models/myPlans/controller_and_subscribe_model.dart';
 import '../models/myPlans/stop_trade_model.dart';
 import '../models/tradeHistory/trade_history_model.dart';
+import '../models/tradeHistory/trade_history_model.dart';
 import '../res/colors.dart';
 import '../styles/app_styles.dart';
 import '../../enums/trade_status.dart';
@@ -45,20 +46,21 @@ class MyPlansProvider with ChangeNotifier {
       return ProductSelectionModel();
     }
   }
-
-  Future<TradeHistoryModel> getTradeHistory(BuildContext buildContext) async {
+   TradeHistoryModel? tradeHistoryResponse;
+  Future<void> getTradeHistory(BuildContext buildContext) async {
     setLoading(true);
     try {
       ITradeHistory tradeHistory = TradeHistory();
-      TradeHistoryModel apiResult = await tradeHistory.getTradesHistory();
+      tradeHistoryResponse = await tradeHistory.getTradesHistory();
+      // List<Table>? TradeHistoryList=apiResult.tradeHistoryList;
       setLoading(false);
-      return apiResult;
+      // return tradeHistoryResponse;
     } catch (ex) {
       setLoading(false);
       showAlertDialog(
           buildContext: buildContext, title: "Failed", content: ex.toString());
 
-      return TradeHistoryModel();
+      // return TradeHistoryModel();
     }
   }
 

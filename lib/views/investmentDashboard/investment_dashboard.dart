@@ -9,6 +9,7 @@ import '../widgets/action_bar.dart';
 import '../widgets/bottom_nav.dart';
 import '../widgets/loading_indicator_widget.dart';
 import 'my_plans.dart';
+import 'trade_history/history_tab.dart';
 
 class InvestmentDashBoard extends StatefulWidget {
   const InvestmentDashBoard({super.key});
@@ -65,7 +66,7 @@ class _InvestmentDashBoardState extends State<InvestmentDashBoard> {
                       AllPlans(),
                       TabTwoContent(),
                       TabThreeContent(),
-                      TabFourContent(),
+                      HistoryTabContent(),
                       // TabFiveContent(),
                     ],
                   );
