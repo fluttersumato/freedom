@@ -46,32 +46,6 @@ class MyPlansProvider with ChangeNotifier {
       return ProductSelectionModel();
     }
   }
-  List<TradeHistoryTable>? _tradeHistoryList;
-
-  List<TradeHistoryTable>? get tradeHistoryList => _tradeHistoryList;
-
-  set tradeHistoryList(List<TradeHistoryTable>? value) {
-    _tradeHistoryList = value;
-    notifyListeners();
-  }
-
-  Future<List<TradeHistoryTable>?> getTradeHistory(BuildContext buildContext) async {
-    setLoading(true);
-    try {
-      ITradeHistory tradeHistory = TradeHistory();
-      var temp = await tradeHistory.getTradesHistory();
-      tradeHistoryList = temp.tradeHistoryList;
-      // List<Table>? TradeHistoryList=apiResult.tradeHistoryList;
-      setLoading(false);
-      return tradeHistoryList;
-    } catch (ex) {
-      setLoading(false);
-      showAlertDialog(
-          buildContext: buildContext, title: "Failed", content: ex.toString());
-
-      // return TradeHistoryModel();
-    }
-  }
 
   List<Products>? allPlansProductList = [];
   List<Products>? getAllPlans() {

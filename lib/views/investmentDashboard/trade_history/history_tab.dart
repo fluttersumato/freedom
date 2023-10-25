@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:freedom/views/widgets/add_space.dart';
 import 'package:provider/provider.dart';
 
 import '../../../models/tradeHistory/trade_history_model.dart';
 import '../../../providers/my_plans_provider.dart';
+import '../../../providers/trade_history_provider.dart';
 import '../../../res/colors.dart';
 import '../../../styles/app_styles.dart';
 import '../../../utils/img_path.dart';
@@ -21,9 +23,9 @@ class _HistoryTabContentState extends State<HistoryTabContent> {
 
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((_)  {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       // Provider.of(context,listen:false).yourFunctionWithNotifyListener();
-       Provider.of<MyPlansProvider>(context, listen: false)
+      Provider.of<TradeHistoryProvider>(context, listen: false)
           .getTradeHistory(context);
     });
     super.initState();
@@ -32,7 +34,14 @@ class _HistoryTabContentState extends State<HistoryTabContent> {
   @override
   Widget build(BuildContext context) {
     double verticalSpace = 6;
-    return Padding(
+    /*  const List<String> dropdownList = <String>[
+      'None',
+      'Chocolate',
+      'Vanilla',
+      'ButterCream'
+    ];*/
+    String? dropdownInitialValue;
+    return Container(
       padding: const EdgeInsets.all(8.0),
       child: Column(
         children: [
@@ -49,196 +58,290 @@ class _HistoryTabContentState extends State<HistoryTabContent> {
               ),
             ),
           ),
-          if(Provider.of<MyPlansProvider>(context, listen: true).tradeHistoryList!=null
-          )
-          Expanded(
-            child: Consumer<MyPlansProvider>(
-                builder: (context, tradeHistoryP, child) {
-              return ListView.builder(
-                  itemCount: tradeHistoryP.tradeHistoryList?.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Card(
-                        color: AppC.white,
-                        shape: AppStyles.borderShapeForCards,
-                        elevation: 1,
-                        child: Column(
-                          children: [
-                            Container(
-                              margin: const EdgeInsets.symmetric(
-                                  horizontal: 8.0, vertical: 2.0),
-                              child: Card(
-                                color: AppC.frameColor,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      const Text(
-                                        'Direction',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 10.53,
-                                          fontFamily: 'Poppins',
-                                          fontWeight: FontWeight.w600,
-                                          height: 0,
+
+          Container(
+            // padding: const EdgeInsets.all(8.0),
+            margin: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                Consumer<TradeHistoryProvider>(
+                  builder: (context, provider, child) {
+
+                    return TextFormField(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: "Search...",
+                      ),
+                      controller: TextEditingController(),
+                      onChanged: (text) {
+                        // Update the provider's state with the current search query.
+                        // Provider.of<TradeHistoryProvider>(context, listen: false).searchText = text;
+                      },
+                    );
+                  },
+                ),
+                const AddVerticalSpace(height: 10),
+                Consumer<TradeHistoryProvider>(
+                  builder: (context, provider, child) {
+                    return SizedBox(
+                      // margin: const EdgeInsets.symmetric(horizontal: 7.0,vertical: 0.0),
+                      height: 57,
+                      child: InputDecorator(
+                        decoration: InputDecoration(
+
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                          labelText: "Direction",
+                        ),
+                        child:
+                        DropdownButtonHideUnderline(
+                          child: DropdownButton<String>(
+
+                            value: provider.selectedDirectionItem,
+                            items: provider.tradeDList.map((item) => DropdownMenuItem<String>(
+                              value: item,
+                              child: Text(item),
+                            )).toList(),
+                            onChanged: (item) => provider.setSelectedItem(item),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+                const AddVerticalSpace(height: 10),
+                Consumer<TradeHistoryProvider>(
+                  builder: (context, provider, child) {
+                    return SizedBox(
+                      // margin: const EdgeInsets.symmetric(horizontal: 7.0,vertical: 0.0),
+                      height: 57,
+                      child: InputDecorator(
+                        decoration: InputDecoration(
+
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                          labelText: "Select Trade History",
+                        ),
+                        child:
+                        DropdownButtonHideUnderline(
+                          child: DropdownButton<String>(
+
+                            value: provider.selectedTradeHItem,
+                            items: provider.tradeHDropdownList.map((item) => DropdownMenuItem<String>(
+                              value: item,
+                              child: Text(item),
+                            )).toList(),
+                            onChanged: (item) => provider.setSelectedTradeHItem(item),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
+
+          if (Provider.of<TradeHistoryProvider>(context, listen: true)
+                  .tradeHistoryList !=
+              null)
+            Expanded(
+              child: Consumer<TradeHistoryProvider>(
+                  builder: (context, tradeHistoryP, child) {
+                return ListView.builder(
+                    itemCount: tradeHistoryP.tradeHistoryList?.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Card(
+                          color: AppC.white,
+                          shape: AppStyles.borderShapeForCards,
+                          elevation: 1,
+                          child: Column(
+                            children: [
+                              Container(
+                                margin: const EdgeInsets.symmetric(
+                                    horizontal: 8.0, vertical: 2.0),
+                                child: Card(
+                                  color: AppC.frameColor,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        const Text(
+                                          'Direction',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 10.53,
+                                            fontFamily: 'Poppins',
+                                            fontWeight: FontWeight.w600,
+                                            height: 0,
+                                          ),
                                         ),
-                                      ),
-                                      Expanded(child: Container()),
-                                      Text(
-                                        tradeHistoryP.tradeHistoryList?[index]
-                                                .direction ??
-                                            "empty",
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 10.53,
-                                          fontFamily: 'Poppins',
-                                          fontWeight: FontWeight.w600,
-                                          height: 0,
+                                        Expanded(child: Container()),
+                                        Text(
+                                          tradeHistoryP.tradeHistoryList?[index]
+                                                  .direction ??
+                                              "empty",
+                                          style: const TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 10.53,
+                                            fontFamily: 'Poppins',
+                                            fontWeight: FontWeight.w600,
+                                            height: 0,
+                                          ),
                                         ),
-                                      ),
-                                      Container(
-                                        margin: const EdgeInsets.only(left: 5),
-                                        decoration: ShapeDecoration(
-                                          color: AppC.frameGreenColor,
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(4)),
+                                        Container(
+                                          margin:
+                                              const EdgeInsets.only(left: 5),
+                                          decoration: ShapeDecoration(
+                                            color: AppC.frameGreenColor,
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(4)),
+                                          ),
+                                          child: Image.asset(
+                                            ImgP.buyDirection,
+                                            width: 10,
+                                            height: 10,
+                                          ),
                                         ),
-                                        child: Image.asset(
-                                          ImgP.buyDirection,
-                                          width: 10,
-                                          height: 10,
-                                        ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    AddRowForTradeHistory(
-                                        title: 'Order ID',
-                                        value: tradeHistoryP
-                                                .tradeHistoryList?[index]
-                                                .orderId
-                                                .toString() ??
-                                            "1",
-                                        verticalSpace: verticalSpace),
-                                    AddRowForTradeHistory(
-                                        title: 'Open Time',
-                                        value: DateFormat('HH:mm:ss').format(
-                                            tradeHistoryP
-                                                .tradeHistoryList?[index]
-                                                .openTime as DateTime),
-                                        // value: provider.tradeHistoryResponse?.table?[index].openTime.toString() ?? "1",
-                                        verticalSpace: verticalSpace),
-                                    AddRowForTradeHistory(
-                                        title: 'Volume',
-                                        value:
-                                            '${tradeHistoryP.tradeHistoryList?[index].closedVolume}%',
-                                        verticalSpace: verticalSpace),
-                                  ],
-                                ),
-                                Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    AddRowForTradeHistory(
-                                        title: 'Market',
-                                        value: tradeHistoryP
-                                                .tradeHistoryList?[index]
-                                                .market ??
-                                            "",
-                                        verticalSpace: verticalSpace),
-                                    AddRowForTradeHistory(
-                                        title: 'Close Time',
-                                        value: DateFormat('HH:mm:ss').format(
-                                            tradeHistoryP
-                                                .tradeHistoryList?[index]
-                                                .closeTime as DateTime),
-                                        // value: provider.tradeHistoryResponse?.table?[index].closeTime.toString() ?? "",
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      AddRowForTradeHistory(
+                                          title: 'Order ID',
+                                          value: tradeHistoryP
+                                                  .tradeHistoryList?[index]
+                                                  .orderId
+                                                  .toString() ??
+                                              "1",
+                                          verticalSpace: verticalSpace),
+                                      AddRowForTradeHistory(
+                                          title: 'Open Time',
+                                          value: DateFormat('HH:mm:ss').format(
+                                              tradeHistoryP
+                                                  .tradeHistoryList?[index]
+                                                  .openTime as DateTime),
+                                          // value: provider.tradeHistoryResponse?.table?[index].openTime.toString() ?? "1",
+                                          verticalSpace: verticalSpace),
+                                      AddRowForTradeHistory(
+                                          title: 'Volume',
+                                          value:
+                                              '${tradeHistoryP.tradeHistoryList?[index].closedVolume}%',
+                                          verticalSpace: verticalSpace),
+                                    ],
+                                  ),
+                                  Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      AddRowForTradeHistory(
+                                          title: 'Market',
+                                          value: tradeHistoryP
+                                                  .tradeHistoryList?[index]
+                                                  .market ??
+                                              "",
+                                          verticalSpace: verticalSpace),
+                                      AddRowForTradeHistory(
+                                          title: 'Close Time',
+                                          value: DateFormat('HH:mm:ss').format(
+                                              tradeHistoryP
+                                                  .tradeHistoryList?[index]
+                                                  .closeTime as DateTime),
+                                          // value: provider.tradeHistoryResponse?.table?[index].closeTime.toString() ?? "",
 
-                                        verticalSpace: verticalSpace),
-                                    AddRowForTradeHistory(
-                                        title: 'Broker Commission',
-                                        value:
-                                            "${tradeHistoryP.tradeHistoryList?[index].commission}%",
-                                        verticalSpace: verticalSpace),
-                                  ],
-                                ),
-                                Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    AddRowForTradeHistory(
-                                        title: 'Symbol',
-                                        value: tradeHistoryP
-                                                .tradeHistoryList?[index]
-                                                .symbol ??
-                                            "",
-                                        verticalSpace: verticalSpace),
-                                    AddRowForTradeHistory(
-                                        title: 'Entry Price',
-                                        value:
-                                            '\$${tradeHistoryP.tradeHistoryList?[index].entryPrice}'
-                                                    .toString() ??
-                                                "",
-                                        verticalSpace: verticalSpace),
-                                    AddRowForTradeHistory(
-                                        title: 'Net',
-                                        value:
-                                            '\$${tradeHistoryP.tradeHistoryList?[index].net}'
-                                                    .toString() ??
-                                                "",
-                                        verticalSpace: verticalSpace),
-                                  ],
-                                ),
-                                Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    AddRowForTradeHistory(
-                                        title: 'Closing Price',
-                                        value:
-                                            '\$${tradeHistoryP.tradeHistoryList?[index].closingPrice}'
-                                                    .toString() ??
-                                                "",
-                                        verticalSpace: verticalSpace),
-                                    AddRowForTradeHistory(
-                                        title: 'Balance',
-                                        value:
-                                            '\$${tradeHistoryP.tradeHistoryList?[index].balance}'
-                                                    .toString() ??
-                                                "",
-                                        verticalSpace: verticalSpace),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ],
-                        ));
-                  });
-            }),
-          ),
+                                          verticalSpace: verticalSpace),
+                                      AddRowForTradeHistory(
+                                          title: 'Broker Commission',
+                                          value:
+                                              "${tradeHistoryP.tradeHistoryList?[index].commission}%",
+                                          verticalSpace: verticalSpace),
+                                    ],
+                                  ),
+                                  Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      AddRowForTradeHistory(
+                                          title: 'Symbol',
+                                          value: tradeHistoryP
+                                                  .tradeHistoryList?[index]
+                                                  .symbol ??
+                                              "",
+                                          verticalSpace: verticalSpace),
+                                      AddRowForTradeHistory(
+                                          title: 'Entry Price',
+                                          value:
+                                              '\$${tradeHistoryP.tradeHistoryList?[index].entryPrice}'
+                                                      .toString() ??
+                                                  "",
+                                          verticalSpace: verticalSpace),
+                                      AddRowForTradeHistory(
+                                          title: 'Net',
+                                          value:
+                                              '\$${tradeHistoryP.tradeHistoryList?[index].net}'
+                                                      .toString() ??
+                                                  "",
+                                          verticalSpace: verticalSpace),
+                                    ],
+                                  ),
+                                  Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      AddRowForTradeHistory(
+                                          title: 'Closing Price',
+                                          value:
+                                              '\$${tradeHistoryP.tradeHistoryList?[index].closingPrice}'
+                                                      .toString() ??
+                                                  "",
+                                          verticalSpace: verticalSpace),
+                                      AddRowForTradeHistory(
+                                          title: 'Balance',
+                                          value:
+                                              '\$${tradeHistoryP.tradeHistoryList?[index].balance}'
+                                                      .toString() ??
+                                                  "",
+                                          verticalSpace: verticalSpace),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ));
+                    });
+              }),
+            ),
         ],
       ),
     );

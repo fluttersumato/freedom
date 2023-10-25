@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:freedom/providers/internet_connection_status_provider.dart';
 import 'package:freedom/providers/my_plans_provider.dart';
 import 'package:freedom/providers/theme_provider.dart';
+import 'package:freedom/providers/trade_history_provider.dart';
 import 'package:freedom/views/investmentDashboard/my_plans.dart';
 import 'package:provider/provider.dart';
 import 'views/investmentDashboard/investment_dashboard.dart';
@@ -14,6 +15,7 @@ void main() {
         ChangeNotifierProvider(create: (_) => ConnectivityProvider()),
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
         ChangeNotifierProvider(create: (_) => MyPlansProvider()),
+        ChangeNotifierProvider(create: (_) => TradeHistoryProvider()),
       ],
       // child:  HomePage(),
       child: const MyApp(),
