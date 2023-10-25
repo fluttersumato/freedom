@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:freedom/models/tradeHistory/trade_history_model.dart';
 import 'package:provider/provider.dart';
 
+import '../../../models/tradeHistory/trade_history_model.dart';
 import '../../../providers/my_plans_provider.dart';
 import '../../../res/colors.dart';
 import '../../../styles/app_styles.dart';
@@ -18,11 +18,12 @@ class HistoryTabContent extends StatefulWidget {
 
 class _HistoryTabContentState extends State<HistoryTabContent> {
   // late TradeHistoryModel tradeModel ;
+
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_)  {
       // Provider.of(context,listen:false).yourFunctionWithNotifyListener();
-      Provider.of<MyPlansProvider>(context, listen: false)
+       Provider.of<MyPlansProvider>(context, listen: false)
           .getTradeHistory(context);
     });
     super.initState();
@@ -49,14 +50,11 @@ class _HistoryTabContentState extends State<HistoryTabContent> {
             ),
           ),
           Expanded(
-            child: ListView.builder(
-                itemCount: Provider.of<MyPlansProvider>(context, listen: true)
-                    .tradeHistoryResponse
-                    ?.table
-                    ?.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Consumer<MyPlansProvider>(
-                      builder: (context, provider, child) {
+            child: Consumer<MyPlansProvider>(
+                builder: (context, tradeHistoryP, child) {
+              return ListView.builder(
+                  itemCount: tradeHistoryP.tradeHistoryList?.length,
+                  itemBuilder: (BuildContext context, int index) {
                     return Card(
                         color: AppC.white,
                         shape: AppStyles.borderShapeForCards,
@@ -88,8 +86,8 @@ class _HistoryTabContentState extends State<HistoryTabContent> {
                                       ),
                                       Expanded(child: Container()),
                                       Text(
-                                        provider.tradeHistoryResponse
-                                                ?.table?[index].direction ??
+                                        tradeHistoryP.tradeHistoryList?[index]
+                                                .direction ??
                                             "empty",
                                         style: TextStyle(
                                           color: Colors.white,
@@ -131,24 +129,24 @@ class _HistoryTabContentState extends State<HistoryTabContent> {
                                   children: [
                                     AddRowForTradeHistory(
                                         title: 'Order ID',
-                                        value: provider.tradeHistoryResponse
-                                                ?.table?[index].orderId
+                                        value: tradeHistoryP
+                                                .tradeHistoryList?[index]
+                                                .orderId
                                                 .toString() ??
                                             "1",
                                         verticalSpace: verticalSpace),
                                     AddRowForTradeHistory(
                                         title: 'Open Time',
                                         value: DateFormat('HH:mm:ss').format(
-                                            provider
-                                                .tradeHistoryResponse
-                                                ?.table?[index]
+                                            tradeHistoryP
+                                                .tradeHistoryList?[index]
                                                 .openTime as DateTime),
                                         // value: provider.tradeHistoryResponse?.table?[index].openTime.toString() ?? "1",
                                         verticalSpace: verticalSpace),
                                     AddRowForTradeHistory(
                                         title: 'Volume',
                                         value:
-                                            '${provider.tradeHistoryResponse?.table?[index].closedVolume}%',
+                                            '${tradeHistoryP.tradeHistoryList?[index].closedVolume}%',
                                         verticalSpace: verticalSpace),
                                   ],
                                 ),
@@ -160,16 +158,16 @@ class _HistoryTabContentState extends State<HistoryTabContent> {
                                   children: [
                                     AddRowForTradeHistory(
                                         title: 'Market',
-                                        value: provider.tradeHistoryResponse
-                                                ?.table?[index].market ??
+                                        value: tradeHistoryP
+                                                .tradeHistoryList?[index]
+                                                .market ??
                                             "",
                                         verticalSpace: verticalSpace),
                                     AddRowForTradeHistory(
                                         title: 'Close Time',
                                         value: DateFormat('HH:mm:ss').format(
-                                            provider
-                                                .tradeHistoryResponse
-                                                ?.table?[index]
+                                            tradeHistoryP
+                                                .tradeHistoryList?[index]
                                                 .closeTime as DateTime),
                                         // value: provider.tradeHistoryResponse?.table?[index].closeTime.toString() ?? "",
 
@@ -177,7 +175,7 @@ class _HistoryTabContentState extends State<HistoryTabContent> {
                                     AddRowForTradeHistory(
                                         title: 'Broker Commission',
                                         value:
-                                            "${provider.tradeHistoryResponse?.table?[index].commission}%",
+                                            "${tradeHistoryP.tradeHistoryList?[index].commission}%",
                                         verticalSpace: verticalSpace),
                                   ],
                                 ),
@@ -189,21 +187,22 @@ class _HistoryTabContentState extends State<HistoryTabContent> {
                                   children: [
                                     AddRowForTradeHistory(
                                         title: 'Symbol',
-                                        value: provider.tradeHistoryResponse
-                                                ?.table?[index].symbol ??
+                                        value: tradeHistoryP
+                                                .tradeHistoryList?[index]
+                                                .symbol ??
                                             "",
                                         verticalSpace: verticalSpace),
                                     AddRowForTradeHistory(
                                         title: 'Entry Price',
                                         value:
-                                            '\$${provider.tradeHistoryResponse?.table?[index].entryPrice}'
+                                            '\$${tradeHistoryP.tradeHistoryList?[index].entryPrice}'
                                                     .toString() ??
                                                 "",
                                         verticalSpace: verticalSpace),
                                     AddRowForTradeHistory(
                                         title: 'Net',
                                         value:
-                                            '\$${provider.tradeHistoryResponse?.table?[index].net}'
+                                            '\$${tradeHistoryP.tradeHistoryList?[index].net}'
                                                     .toString() ??
                                                 "",
                                         verticalSpace: verticalSpace),
@@ -218,14 +217,14 @@ class _HistoryTabContentState extends State<HistoryTabContent> {
                                     AddRowForTradeHistory(
                                         title: 'Closing Price',
                                         value:
-                                            '\$${provider.tradeHistoryResponse?.table?[index].closingPrice}'
+                                            '\$${tradeHistoryP.tradeHistoryList?[index].closingPrice}'
                                                     .toString() ??
                                                 "",
                                         verticalSpace: verticalSpace),
                                     AddRowForTradeHistory(
                                         title: 'Balance',
                                         value:
-                                            '\$${provider.tradeHistoryResponse?.table?[index].balance}'
+                                            '\$${tradeHistoryP.tradeHistoryList?[index].balance}'
                                                     .toString() ??
                                                 "",
                                         verticalSpace: verticalSpace),
@@ -235,13 +234,8 @@ class _HistoryTabContentState extends State<HistoryTabContent> {
                             ),
                           ],
                         ));
-                    return Text(
-                      provider.tradeHistoryResponse?.table?[index].orderId
-                              .toString() ??
-                          "empty", // accessing Provider class variable
-                    );
                   });
-                }),
+            }),
           ),
         ],
       ),

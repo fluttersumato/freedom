@@ -46,15 +46,24 @@ class MyPlansProvider with ChangeNotifier {
       return ProductSelectionModel();
     }
   }
-   TradeHistoryModel? tradeHistoryResponse;
-  Future<void> getTradeHistory(BuildContext buildContext) async {
+  List<TradeHistoryTable>? _tradeHistoryList;
+
+  List<TradeHistoryTable>? get tradeHistoryList => _tradeHistoryList;
+
+  set tradeHistoryList(List<TradeHistoryTable>? value) {
+    _tradeHistoryList = value;
+    notifyListeners();
+  }
+
+  Future<List<TradeHistoryTable>?> getTradeHistory(BuildContext buildContext) async {
     setLoading(true);
     try {
       ITradeHistory tradeHistory = TradeHistory();
-      tradeHistoryResponse = await tradeHistory.getTradesHistory();
+      var temp = await tradeHistory.getTradesHistory();
+      tradeHistoryList = temp.tradeHistoryList;
       // List<Table>? TradeHistoryList=apiResult.tradeHistoryList;
       setLoading(false);
-      // return tradeHistoryResponse;
+      return tradeHistoryList;
     } catch (ex) {
       setLoading(false);
       showAlertDialog(

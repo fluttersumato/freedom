@@ -5,7 +5,7 @@ TradeHistoryModel tradeHistoryModelFromJson(String str) => TradeHistoryModel.fro
 String tradeHistoryModelToJson(TradeHistoryModel data) => json.encode(data.toJson());
 class TradeHistoryModel {
   TradeHistoryModel({
-      List<Table>? table,}){
+      List<TradeHistoryTable>? table,}){
     _table = table;
 }
 
@@ -15,13 +15,13 @@ class TradeHistoryModel {
     // if (json['Table'] != null && json['Table'] is Map<String, dynamic>) {
       _table = [];
       jsonData['Table'].forEach((v) {
-        _table?.add(Table.fromJson(v));
+        _table?.add(TradeHistoryTable.fromJson(v));
       });
     }
   }
-  List<Table>? _table;
+  List<TradeHistoryTable>? _table;
 
-  List<Table>? get table => _table;
+  List<TradeHistoryTable>? get tradeHistoryList => _table;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -47,10 +47,10 @@ class TradeHistoryModel {
 /// Net : -150.00
 /// Balance : 13807.08
 
-Table tableFromJson(String str) => Table.fromJson(json.decode(str));
-String tableToJson(Table data) => json.encode(data.toJson());
-class Table {
-  Table({
+TradeHistoryTable tableFromJson(String str) => TradeHistoryTable.fromJson(json.decode(str));
+String tableToJson(TradeHistoryTable data) => json.encode(data.toJson());
+class TradeHistoryTable {
+  TradeHistoryTable({
       int? totalcount, 
       int? orderId, 
       String? market, 
@@ -79,7 +79,7 @@ class Table {
     _balance = balance;
 }
 
-  Table.fromJson(dynamic json) {
+  TradeHistoryTable.fromJson(dynamic json) {
     _totalcount = json['Totalcount'];
     _orderId = json['OrderId'];
     _market = json['Market'];

@@ -1,7 +1,6 @@
 import 'package:freedom/data/services/implementations/request_provider.dart';
 import '../../../config.dart';
 import '../../../models/tradeHistory/trade_history_model.dart';
-import '../../../models/tradeHistory/trade_history_model.dart';
 import '../interfaces/i_request_provider.dart';
 import '../interfaces/i_trade_history.dart';
 
