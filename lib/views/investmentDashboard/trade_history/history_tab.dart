@@ -58,17 +58,15 @@ class _HistoryTabContentState extends State<HistoryTabContent> {
               ),
             ),
           ),
-
           Container(
             // padding: const EdgeInsets.all(8.0),
             margin: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                Consumer<TradeHistoryProvider>(
-                  builder: (context, provider, child) {
-
-                    return TextFormField(
-                      decoration: InputDecoration(
+            child: Consumer<TradeHistoryProvider>(
+              builder: (context, provider, child) {
+                return Column(
+                  children: [
+                    TextFormField(
+                      decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         hintText: "Search...",
                       ),
@@ -77,73 +75,127 @@ class _HistoryTabContentState extends State<HistoryTabContent> {
                         // Update the provider's state with the current search query.
                         // Provider.of<TradeHistoryProvider>(context, listen: false).searchText = text;
                       },
-                    );
-                  },
-                ),
-                const AddVerticalSpace(height: 10),
-                Consumer<TradeHistoryProvider>(
-                  builder: (context, provider, child) {
-                    return SizedBox(
+                    ),
+                    const AddVerticalSpace(height: 10),
+                    SizedBox(
                       // margin: const EdgeInsets.symmetric(horizontal: 7.0,vertical: 0.0),
                       height: 57,
                       child: InputDecorator(
                         decoration: InputDecoration(
-
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                           labelText: "Direction",
                         ),
-                        child:
-                        DropdownButtonHideUnderline(
+                        child: DropdownButtonHideUnderline(
                           child: DropdownButton<String>(
-
                             value: provider.selectedDirectionItem,
-                            items: provider.tradeDList.map((item) => DropdownMenuItem<String>(
-                              value: item,
-                              child: Text(item),
-                            )).toList(),
-                            onChanged: (item) => provider.setSelectedItem(item),
+                            items: provider.tradeDList
+                                .map((item) => DropdownMenuItem<String>(
+                                      value: item,
+                                      child: Text(item),
+                                    ))
+                                .toList(),
+                            onChanged: (item) =>
+                                provider.setSelectedItem(item),
                           ),
                         ),
                       ),
-                    );
-                  },
-                ),
-                const AddVerticalSpace(height: 10),
-                Consumer<TradeHistoryProvider>(
-                  builder: (context, provider, child) {
-                    return SizedBox(
+                    ),
+                    const AddVerticalSpace(height: 10),
+                    SizedBox(
                       // margin: const EdgeInsets.symmetric(horizontal: 7.0,vertical: 0.0),
                       height: 57,
                       child: InputDecorator(
                         decoration: InputDecoration(
-
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                           labelText: "Select Trade History",
                         ),
-                        child:
-                        DropdownButtonHideUnderline(
+                        child: DropdownButtonHideUnderline(
                           child: DropdownButton<String>(
-
                             value: provider.selectedTradeHItem,
-                            items: provider.tradeHDropdownList.map((item) => DropdownMenuItem<String>(
-                              value: item,
-                              child: Text(item),
-                            )).toList(),
-                            onChanged: (item) => provider.setSelectedTradeHItem(item),
+                            items: provider.tradeHDropdownList
+                                .map((item) => DropdownMenuItem<String>(
+                                      value: item,
+                                      child: Text(item),
+                                    ))
+                                .toList(),
+                            onChanged: (item) =>
+                                provider.setSelectedTradeHItem(item),
                           ),
                         ),
                       ),
-                    );
-                  },
-                ),
-              ],
+                    ),
+                    const AddVerticalSpace(height: 10),
+
+                    if (provider.isVisibleStartDate)
+                      Row(
+                        children: [
+                          Expanded(
+                            child: TextFormField(
+                              readOnly: true,
+                              decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                                hintText: "Start Date",
+                              ),
+                              controller: Provider.of<TradeHistoryProvider>(
+                                      context,
+                                      listen: true)
+                                  .startDate,
+                              onTap: () {
+                                Provider.of<TradeHistoryProvider>(context,
+                                        listen: false)
+                                    .selectDate(context);
+                              },
+                            ),
+                          ),
+                          AddHorizontalSpace(width: 10),
+                          GestureDetector(child: Image.asset(ImgP.calenderIcon,width: 20,),onTap: () {
+                            Provider.of<TradeHistoryProvider>(context,
+                                listen: false)
+                                .selectDate(context);
+                          },),
+                        ],
+                      ),
+                    if (provider.isVisibleStartDate)
+                      const AddVerticalSpace(height: 10),
+                    if (provider.isVisibleStartDate)
+                      Row(
+                        children: [
+                          Expanded(
+                            child: TextFormField(
+                              readOnly: true,
+                              decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                                hintText: "End Date",
+                              ),
+                              controller: Provider.of<TradeHistoryProvider>(
+                                      context,
+                                      listen: true)
+                                  .endDate,
+                              onTap: () {
+                                Provider.of<TradeHistoryProvider>(context,
+                                        listen: false)
+                                    .selectEndDate(context);
+                              },
+                            ),
+                          ),
+                          AddHorizontalSpace(width: 10),
+                          GestureDetector(child: Image.asset(ImgP.calenderIcon,width: 20,),onTap: () {
+                            Provider.of<TradeHistoryProvider>(context,
+                                listen: false)
+                                .selectEndDate(context);
+                          },),
+
+                        ],
+                      ),
+                  ],
+                );
+              },
             ),
           ),
-
           if (Provider.of<TradeHistoryProvider>(context, listen: true)
                   .tradeHistoryList !=
               null)

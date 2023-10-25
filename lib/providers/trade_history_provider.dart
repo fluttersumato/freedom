@@ -28,6 +28,32 @@ class TradeHistoryProvider with ChangeNotifier {
     _isLoading = value;
     notifyListeners();
   }
+  TextEditingController startDate=TextEditingController();
+  Future<DateTime?> selectDate(BuildContext context) async {
+    final selectedDate = await showDatePicker(
+      initialDate: DateTime.now(),
+      firstDate: DateTime(DateTime.now().year - 1),
+      lastDate: DateTime.now(), context: context,
+    );
+    if(selectedDate!=null) {
+      startDate.text=selectedDate.toString();
+    }
+    return selectedDate;
+  }
+
+  TextEditingController endDate=TextEditingController();
+  Future<DateTime?> selectEndDate(BuildContext context) async {
+    final selectedDate = await showDatePicker(
+      initialDate: DateTime.now(),
+      firstDate: DateTime(DateTime.now().year - 1),
+      lastDate: DateTime.now(), context: context,
+    );
+    if(selectedDate!=null) {
+      endDate.text=selectedDate.toString();
+    }
+    return selectedDate;
+  }
+
 
   String _searchText = "";
 
@@ -65,8 +91,13 @@ class TradeHistoryProvider with ChangeNotifier {
     _selectedDirectionItem = item;
     notifyListeners();
   }
+  bool isVisibleStartDate=false;
   void setSelectedTradeHItem(String? item) {
     _tradeHDropdownSelectedItem = item;
+    if(item=="Custom")
+      isVisibleStartDate=true;
+    else
+      isVisibleStartDate=false;
     notifyListeners();
   }
 
