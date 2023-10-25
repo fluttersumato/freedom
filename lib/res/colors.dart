@@ -10,6 +10,9 @@ class AppC {
   static const Color successToast = Colors.green;
   static const Color errorToast = Colors.red;
 
+  // static const Color selectedTab = Color(0xFF90FFFF);
+  static  Color selectedTab = Colors.white.withOpacity(0.30000001192092896);
+  static const Color unSelectedTab = Colors.transparent;
   static const Color white = Color(0xFFFFFFFF);
   // static const Color  = Color(0xFF);
    static const Color disableTextC = Color(0xFFA9A9A9);

@@ -49,6 +49,8 @@ class _HistoryTabContentState extends State<HistoryTabContent> {
               ),
             ),
           ),
+          if(Provider.of<MyPlansProvider>(context, listen: true).tradeHistoryList!=null
+          )
           Expanded(
             child: Consumer<MyPlansProvider>(
                 builder: (context, tradeHistoryP, child) {

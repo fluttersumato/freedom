@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/theme_provider.dart';
+import '../../res/colors.dart';
 import '../../utils/img_path.dart';
 
 class BottomTabControl extends StatefulWidget {
@@ -153,7 +154,7 @@ class _BottomTabControlState extends State<BottomTabControl> {
 
   Widget _buildTabItem(
       {Image? icon, Text? title, int? selectedIndex, bool selected = false}) {
-    final tabColor = selected ? const Color(0xFF90FFFF) : Colors.transparent;
+    final tabColor = selected ? AppC.selectedTab : AppC.unSelectedTab;
     return GestureDetector(
       onTap: () {
         widget.onTabSelected(selectedIndex!);
