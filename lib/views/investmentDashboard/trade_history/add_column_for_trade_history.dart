@@ -5,7 +5,7 @@ class AddRowForTradeHistory extends StatelessWidget {
   final double verticalSpace;
   final String value;
 
-  AddRowForTradeHistory({
+  const AddRowForTradeHistory({super.key,
     required this.title,
     required this.verticalSpace,
     required this.value,
@@ -46,7 +46,7 @@ class AddRowForTradeHistory extends StatelessWidget {
                 height: 1.0,
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
           ],
         ),
       ],

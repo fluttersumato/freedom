@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:freedom/views/widgets/add_space.dart';
 import 'package:provider/provider.dart';
-
-import '../../../models/tradeHistory/trade_history_model.dart';
-import '../../../providers/my_plans_provider.dart';
 import '../../../providers/trade_history_provider.dart';
 import '../../../res/colors.dart';
 import '../../../styles/app_styles.dart';
 import '../../../utils/img_path.dart';
+import '../../widgets/custom_dropdown_widget.dart';
 import 'add_column_for_trade_history.dart';
 import 'package:intl/intl.dart';
 
@@ -40,7 +38,7 @@ class _HistoryTabContentState extends State<HistoryTabContent> {
       'Vanilla',
       'ButterCream'
     ];*/
-    String? dropdownInitialValue;
+
     return Container(
       padding: const EdgeInsets.all(8.0),
       child: Column(
@@ -77,57 +75,21 @@ class _HistoryTabContentState extends State<HistoryTabContent> {
                       },
                     ),
                     const AddVerticalSpace(height: 10),
-                    SizedBox(
-                      // margin: const EdgeInsets.symmetric(horizontal: 7.0,vertical: 0.0),
-                      height: 57,
-                      child: InputDecorator(
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5.0),
-                          ),
-                          labelText: "Direction",
-                        ),
-                        child: DropdownButtonHideUnderline(
-                          child: DropdownButton<String>(
-                            value: provider.selectedDirectionItem,
-                            items: provider.tradeDList
-                                .map((item) => DropdownMenuItem<String>(
-                                      value: item,
-                                      child: Text(item),
-                                    ))
-                                .toList(),
-                            onChanged: (item) =>
-                                provider.setSelectedItem(item),
-                          ),
-                        ),
-                      ),
+                    CustomDropdownWidget(
+                      labelText: "Direction",
+                      items: provider.tradeDList,
+                      value: provider.selectedDirectionItem ?? "",
+                      onChanged: (item) => provider.setSelectedItem(item),
                     ),
+
                     const AddVerticalSpace(height: 10),
-                    SizedBox(
-                      // margin: const EdgeInsets.symmetric(horizontal: 7.0,vertical: 0.0),
-                      height: 57,
-                      child: InputDecorator(
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5.0),
-                          ),
-                          labelText: "Select Trade History",
-                        ),
-                        child: DropdownButtonHideUnderline(
-                          child: DropdownButton<String>(
-                            value: provider.selectedTradeHItem,
-                            items: provider.tradeHDropdownList
-                                .map((item) => DropdownMenuItem<String>(
-                                      value: item,
-                                      child: Text(item),
-                                    ))
-                                .toList(),
-                            onChanged: (item) =>
-                                provider.setSelectedTradeHItem(item),
-                          ),
-                        ),
-                      ),
+                    CustomDropdownWidget(
+                      labelText: "Select Trade History",
+                      items: provider.tradeHDropdownList,
+                      value: provider.selectedTradeHItem ?? "",
+                      onChanged: (item) => provider.setSelectedTradeHItem(item),
                     ),
+
                     const AddVerticalSpace(height: 10),
 
                     if (provider.isVisibleStartDate)
@@ -151,7 +113,7 @@ class _HistoryTabContentState extends State<HistoryTabContent> {
                               },
                             ),
                           ),
-                          AddHorizontalSpace(width: 10),
+                          const AddHorizontalSpace(width: 10),
                           GestureDetector(child: Image.asset(ImgP.calenderIcon,width: 20,),onTap: () {
                             Provider.of<TradeHistoryProvider>(context,
                                 listen: false)
@@ -182,7 +144,7 @@ class _HistoryTabContentState extends State<HistoryTabContent> {
                               },
                             ),
                           ),
-                          AddHorizontalSpace(width: 10),
+                          const AddHorizontalSpace(width: 10),
                           GestureDetector(child: Image.asset(ImgP.calenderIcon,width: 20,),onTap: () {
                             Provider.of<TradeHistoryProvider>(context,
                                 listen: false)
@@ -352,15 +314,13 @@ class _HistoryTabContentState extends State<HistoryTabContent> {
                                           title: 'Entry Price',
                                           value:
                                               '\$${tradeHistoryP.tradeHistoryList?[index].entryPrice}'
-                                                      .toString() ??
-                                                  "",
+                                                      .toString(),
                                           verticalSpace: verticalSpace),
                                       AddRowForTradeHistory(
                                           title: 'Net',
                                           value:
                                               '\$${tradeHistoryP.tradeHistoryList?[index].net}'
-                                                      .toString() ??
-                                                  "",
+                                                      .toString() ,
                                           verticalSpace: verticalSpace),
                                     ],
                                   ),
@@ -375,15 +335,14 @@ class _HistoryTabContentState extends State<HistoryTabContent> {
                                           title: 'Closing Price',
                                           value:
                                               '\$${tradeHistoryP.tradeHistoryList?[index].closingPrice}'
-                                                      .toString() ??
-                                                  "",
+                                                      .toString() ,
                                           verticalSpace: verticalSpace),
                                       AddRowForTradeHistory(
                                           title: 'Balance',
                                           value:
                                               '\$${tradeHistoryP.tradeHistoryList?[index].balance}'
-                                                      .toString() ??
-                                                  "",
+                                                      .toString()
+                                                  ,
                                           verticalSpace: verticalSpace),
                                     ],
                                   ),

@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 import '../data/services/implementations/product_selection.dart';
-import '../data/services/implementations/trade_history.dart';
 import '../data/services/interfaces/i_product_selection.dart';
-import '../data/services/interfaces/i_trade_history.dart';
 import '../data/services/settings.dart';
 import '../models/myPlans/api_model/product_selection_model.dart';
 import '../models/myPlans/controller_and_subscribe_model.dart';
 import '../models/myPlans/stop_trade_model.dart';
-import '../models/tradeHistory/trade_history_model.dart';
-import '../models/tradeHistory/trade_history_model.dart';
 import '../res/colors.dart';
 import '../styles/app_styles.dart';
 import '../../enums/trade_status.dart';

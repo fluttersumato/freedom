@@ -427,7 +427,7 @@ class AppStyles {
     ),*/
     primaryColor: Colors.blue,
     hintColor: Colors.orange,
-    textTheme:  TextTheme(
+    textTheme:  const TextTheme(
 
 
       bodySmall: smallTextStyle,

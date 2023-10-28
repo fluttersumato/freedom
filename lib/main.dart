@@ -56,11 +56,11 @@ class BottomTabControlExample extends StatefulWidget {
   const BottomTabControlExample({super.key});
 
   @override
-  _BottomTabControlExampleState createState() =>
-      _BottomTabControlExampleState();
+  BottomTabControlExampleState createState() =>
+      BottomTabControlExampleState();
 }
 
-class _BottomTabControlExampleState extends State<BottomTabControlExample> {
+class BottomTabControlExampleState extends State<BottomTabControlExample> {
   int selectedIndex = 0;
 
   @override
