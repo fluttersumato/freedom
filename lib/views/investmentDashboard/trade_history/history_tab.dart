@@ -5,7 +5,9 @@ import '../../../providers/trade_history_provider.dart';
 import '../../../res/colors.dart';
 import '../../../styles/app_styles.dart';
 import '../../../utils/img_path.dart';
+import '../../widgets/custom_date_picker.dart';
 import '../../widgets/custom_dropdown_widget.dart';
+import '../../widgets/custom_field.dart';
 import 'add_column_for_trade_history.dart';
 import 'package:intl/intl.dart';
 
@@ -63,12 +65,9 @@ class _HistoryTabContentState extends State<HistoryTabContent> {
               builder: (context, provider, child) {
                 return Column(
                   children: [
-                    TextFormField(
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: "Search...",
-                      ),
-                      controller: TextEditingController(),
+                    CustomField(displayTooltip:false,tooltipMessage: "tooltip long message display",
+                      hintText: "Search...",
+                      controller: Provider.of<TradeHistoryProvider>(context, listen: true).controllerSearch,
                       onChanged: (text) {
                         // Update the provider's state with the current search query.
                         // Provider.of<TradeHistoryProvider>(context, listen: false).searchText = text;
@@ -93,66 +92,26 @@ class _HistoryTabContentState extends State<HistoryTabContent> {
                     const AddVerticalSpace(height: 10),
 
                     if (provider.isVisibleStartDate)
-                      Row(
-                        children: [
-                          Expanded(
-                            child: TextFormField(
-                              readOnly: true,
-                              decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
-                                hintText: "Start Date",
-                              ),
-                              controller: Provider.of<TradeHistoryProvider>(
-                                      context,
-                                      listen: true)
-                                  .startDate,
-                              onTap: () {
-                                Provider.of<TradeHistoryProvider>(context,
-                                        listen: false)
-                                    .selectDate(context);
-                              },
-                            ),
-                          ),
-                          const AddHorizontalSpace(width: 10),
-                          GestureDetector(child: Image.asset(ImgP.calenderIcon,width: 20,),onTap: () {
-                            Provider.of<TradeHistoryProvider>(context,
-                                listen: false)
-                                .selectDate(context);
-                          },),
-                        ],
+                      CustomDatePicker(
+                        hintText: "Start Date",
+                        controller: Provider.of<TradeHistoryProvider>(context, listen: true).startDate,
+                        onTap: () {
+                          Provider.of<TradeHistoryProvider>(context, listen: false).selectDate(context);
+                        },
                       ),
+
+
                     if (provider.isVisibleStartDate)
                       const AddVerticalSpace(height: 10),
                     if (provider.isVisibleStartDate)
-                      Row(
-                        children: [
-                          Expanded(
-                            child: TextFormField(
-                              readOnly: true,
-                              decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
-                                hintText: "End Date",
-                              ),
-                              controller: Provider.of<TradeHistoryProvider>(
-                                      context,
-                                      listen: true)
-                                  .endDate,
-                              onTap: () {
-                                Provider.of<TradeHistoryProvider>(context,
-                                        listen: false)
-                                    .selectEndDate(context);
-                              },
-                            ),
-                          ),
-                          const AddHorizontalSpace(width: 10),
-                          GestureDetector(child: Image.asset(ImgP.calenderIcon,width: 20,),onTap: () {
-                            Provider.of<TradeHistoryProvider>(context,
-                                listen: false)
-                                .selectEndDate(context);
-                          },),
-
-                        ],
+                      CustomDatePicker(
+                        hintText: "End Date",
+                        controller: Provider.of<TradeHistoryProvider>(context, listen: true).endDate,
+                        onTap: () {
+                          Provider.of<TradeHistoryProvider>(context, listen: false).selectEndDate(context);
+                        },
                       ),
+
                   ],
                 );
               },

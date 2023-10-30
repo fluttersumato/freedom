@@ -36,8 +36,12 @@ class MyPlansProvider with ChangeNotifier {
       return apiResult;
     } catch (ex) {
       setLoading(false);
-      showAlertDialog(
-          buildContext: buildContext, title: "Failed", content: ex.toString());
+      if (buildContext.mounted) {
+        showAlertDialog(
+            buildContext: buildContext,
+            title: "Failed",
+            content: ex.toString());
+      }
 
       return ProductSelectionModel();
     }
@@ -222,28 +226,34 @@ class MyPlansProvider with ChangeNotifier {
       if (TradeStatus.values[productsModel.data?.userProduct?.status as int] ==
           TradeStatus.active) {
         // API call was successful
-        showDialog(
-          context: buildContext,
-          builder: (BuildContext context) {
-            return CongratsDistributorPopup(
-                isSuccess: true,
-                title: StringCons.tradeStartPopupTitle,
-                description: StringCons.tradeStartPopupDesc);
-            // return ResultDialog(isSuccess: isSuccess);
-          },
-        );
+        if (buildContext.mounted) {
+          showDialog(
+            context: buildContext,
+            builder: (BuildContext context) {
+              return CongratsDistributorPopup(
+                  isSuccess: true,
+                  title: StringCons.tradeStartPopupTitle,
+                  description: StringCons.tradeStartPopupDesc);
+              // return ResultDialog(isSuccess: isSuccess);
+            },
+          );
+
+        }
       } else {
         // API call failed
-        showDialog(
-          context: buildContext,
-          builder: (BuildContext context) {
-            return CongratsDistributorPopup(
-                isSuccess: false,
-                title: StringCons.failedPopupTitle,
-                description: StringCons.failedPopupDesc);
-            // return ResultDialog(isSuccess: isSuccess);
-          },
-        );
+        if (buildContext.mounted) {
+          showDialog(
+            context: buildContext,
+            builder: (BuildContext context) {
+              return CongratsDistributorPopup(
+                  isSuccess: false,
+                  title: StringCons.failedPopupTitle,
+                  description: StringCons.failedPopupDesc);
+              // return ResultDialog(isSuccess: isSuccess);
+            },
+          );
+
+        }
       }
     }
   }
@@ -294,19 +304,22 @@ class MyPlansProvider with ChangeNotifier {
 
       if (productsModel.data?.userStatus == TradeStatus.paused.index) {
         // API call was successful
-        Navigator.of(context).pop(); // Close the confirmation dialog
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return CongratsDistributorPopup(
-                isSuccess: true,
-                title: StringCons.tradePausedPopupTitle,
-                description: StringCons.tradePausedPopupDesc);
-            // return ResultDialog(isSuccess: isSuccess);
-          },
-        );
+        if (context.mounted) {
+          Navigator.of(context).pop(); // Close the confirmation dialog
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return CongratsDistributorPopup(
+                  isSuccess: true,
+                  title: StringCons.tradePausedPopupTitle,
+                  description: StringCons.tradePausedPopupDesc);
+              // return ResultDialog(isSuccess: isSuccess);
+            },
+          );
+        }
       } else {
         // API call failed
+        if (context.mounted) {
         showDialog(
           context: context,
           builder: (BuildContext context) {
@@ -318,10 +331,11 @@ class MyPlansProvider with ChangeNotifier {
           },
         );
       }
+      }
     } catch (error) {
       // Handle any exceptions
       // API call failed
-      showDialog(
+      if (context.mounted) {showDialog(
         context: context,
         builder: (BuildContext context) {
           return CongratsDistributorPopup(
@@ -331,6 +345,7 @@ class MyPlansProvider with ChangeNotifier {
           // return ResultDialog(isSuccess: isSuccess);
         },
       );
+    }
     } finally {
       setLoading(false);
     }
@@ -379,6 +394,7 @@ class MyPlansProvider with ChangeNotifier {
 
       if (productsModel.data?.userStatus == TradeStatus.stopped.index) {
         // API call was successful
+        if (context.mounted) {
         Navigator.of(context).pop(); // Close the confirmation dialog
         showDialog(
           context: context,
@@ -390,23 +406,26 @@ class MyPlansProvider with ChangeNotifier {
             // return ResultDialog(isSuccess: isSuccess);
           },
         );
+      }
       } else {
         // API call failed
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return CongratsDistributorPopup(
-                isSuccess: false,
-                title: StringCons.failedPopupTitle,
-                description: StringCons.failedPopupDesc);
-            // return ResultDialog(isSuccess: isSuccess);
-          },
-        );
+        if (context.mounted) {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return CongratsDistributorPopup(
+                  isSuccess: false,
+                  title: StringCons.failedPopupTitle,
+                  description: StringCons.failedPopupDesc);
+              // return ResultDialog(isSuccess: isSuccess);
+            },
+          );
+        }
       }
     } catch (error) {
       // Handle any exceptions
       // API call failed
-      showDialog(
+      if (context.mounted) {showDialog(
         context: context,
         builder: (BuildContext context) {
           return CongratsDistributorPopup(
@@ -416,6 +435,7 @@ class MyPlansProvider with ChangeNotifier {
           // return ResultDialog(isSuccess: isSuccess);
         },
       );
+    }
     } finally {
       setLoading(false);
     }
@@ -469,7 +489,7 @@ class MyPlansProvider with ChangeNotifier {
 
         if (data.id == productsModel.data?.userProduct?.id) {
           // API call was successful
-          Navigator.of(context).pop(); // Close the confirmation dialog
+          if (context.mounted) { Navigator.of(context).pop(); // Close the confirmation dialog
           showDialog(
             context: context,
             builder: (BuildContext context) {
@@ -480,9 +500,10 @@ class MyPlansProvider with ChangeNotifier {
               // return ResultDialog(isSuccess: isSuccess);
             },
           );
+        }
         } else {
           // API call failed
-          showDialog(
+          if (context.mounted) { showDialog(
             context: context,
             builder: (BuildContext context) {
               return CongratsDistributorPopup(
@@ -493,11 +514,12 @@ class MyPlansProvider with ChangeNotifier {
             },
           );
         }
+        }
       }
     } catch (error) {
       // Handle any exceptions
       // API call failed
-      showDialog(
+      if (context.mounted) { showDialog(
         context: context,
         builder: (BuildContext context) {
           return CongratsDistributorPopup(
@@ -507,6 +529,7 @@ class MyPlansProvider with ChangeNotifier {
           // return ResultDialog(isSuccess: isSuccess);
         },
       );
+    }
     } finally {
       setLoading(false);
     }

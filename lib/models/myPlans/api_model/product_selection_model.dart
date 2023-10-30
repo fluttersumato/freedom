@@ -88,10 +88,8 @@ class Data {
     if (userProduct != null) {
       map['userProduct'] = userProduct?.toJson();
     }
-    if (products != null) {
-      map['products'] = products.map((v) => v.toJson()).toList();
-    }
-    if (markets != null) {
+    map['products'] = products.map((v) => v.toJson()).toList();
+      if (markets != null) {
       map['markets'] = markets?.map((v) => v.toJson()).toList();
     }
     return map;

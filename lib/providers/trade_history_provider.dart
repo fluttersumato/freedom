@@ -14,6 +14,7 @@ class TradeHistoryProvider with ChangeNotifier {
     notifyListeners();
   }
   TextEditingController startDate=TextEditingController();
+  TextEditingController controllerSearch=TextEditingController();
   Future<DateTime?> selectDate(BuildContext context) async {
     final selectedDate = await showDatePicker(
       initialDate: DateTime.now(),
@@ -119,8 +120,48 @@ class TradeHistoryProvider with ChangeNotifier {
         content: ex.toString(),
         yes: "Ok",
       );
-      showDialog(
-          context: buildContext, builder: (BuildContext context) => baseDialog);
+      if (buildContext.mounted) {
+        showDialog(
+            context: buildContext,
+            builder: (BuildContext context) => baseDialog);
+      }
+
+      // return TradeHistoryModel();
+    }
+  }
+  Future<List<TradeHistoryTable>?> applyFilterTradeHistory(BuildContext buildContext) async {
+    setLoading(true);
+    String userFilter;
+    if (controllerSearch.text.isNotEmpty)
+    {
+      userFilter = "searchtradehistory(1,10,'createdOn','desc','${controllerSearch.text.toLowerCase()}')?direction=$selectedDirectionItem &startDate= ${startDate.text} &endDate=${endDate.text}";
+    }
+    else
+    {
+      //userFilter = $"gettradehistory(1,10,'CloseTime','desc')?direction={directionDropdown}&startDate={startDate}&endDate={endDate}";
+      userFilter = "gettradehistory( 1,10, CloseTime, desc)?direction=$selectedDirectionItem &startDate= ${startDate.text} &endDate=${endDate.text}";
+
+    }
+    try {
+      ITradeHistory tradeHistory = TradeHistory();
+      var temp = await tradeHistory.getTradesHistory(url: userFilter);
+      tradeHistoryList = temp.tradeHistoryList;
+      // List<Table>? TradeHistoryList=apiResult.tradeHistoryList;
+      setLoading(false);
+      return tradeHistoryList;
+    } catch (ex) {
+      setLoading(false);
+
+      var baseDialog = CustomAlertDialog(
+        title: "Failed",
+        content: ex.toString(),
+        yes: "Ok",
+      );
+      if (buildContext.mounted) {
+        showDialog(
+            context: buildContext,
+            builder: (BuildContext context) => baseDialog);
+      }
 
       // return TradeHistoryModel();
     }
